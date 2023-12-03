@@ -94,8 +94,17 @@ func mutateContainerLogLevel(c *corev1.Container, override []v1beta1.ContainerLo
 	if len(override) == 0 {
 		return
 	}
+
+	if c.Name == metrics.OtelAgentName {
+		mutateContainerLogLevelWithFlag("--zap-log-level=", c, override)
+	} else {
+		mutateContainerLogLevelWithFlag("-v=", c, override)
+	}
+}
+
+func mutateContainerLogLevelWithFlag(flagName string, c *corev1.Container, override []v1beta1.ContainerLogLevelOverride) {
 	for i, arg := range c.Args {
-		if strings.HasPrefix(arg, "-v=") {
+		if strings.HasPrefix(arg, flagName) {
 			c.Args = removeArg(c.Args, i)
 			break
 		}
@@ -103,7 +112,7 @@ func mutateContainerLogLevel(c *corev1.Container, override []v1beta1.ContainerLo
 
 	for _, logLevel := range override {
 		if logLevel.ContainerName == c.Name {
-			c.Args = append(c.Args, fmt.Sprintf("-v=%d", logLevel.LogLevel))
+			c.Args = append(c.Args, fmt.Sprintf("%s%d", flagName, logLevel.LogLevel))
 			break
 		}
 	}

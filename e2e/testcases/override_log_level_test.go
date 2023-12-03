@@ -45,7 +45,7 @@ func TestOverrideRootSyncLogLevel(t *testing.T) {
 		[]testpredicates.Predicate{
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=0"),
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=5"),
-			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=0"),
+			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=0"),
 		},
 	)
 	if err != nil {
@@ -59,7 +59,7 @@ func TestOverrideRootSyncLogLevel(t *testing.T) {
 		[]testpredicates.Predicate{
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=3"),
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=5"),
-			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=0"),
+			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=0"),
 		},
 	)
 	if err != nil {
@@ -74,7 +74,7 @@ func TestOverrideRootSyncLogLevel(t *testing.T) {
 		[]testpredicates.Predicate{
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=5"),
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=7"),
-			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=9"),
+			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=9"),
 		},
 	)
 	if err != nil {
@@ -88,7 +88,7 @@ func TestOverrideRootSyncLogLevel(t *testing.T) {
 		[]testpredicates.Predicate{
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=0"),
 			testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=5"),
-			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=0"),
+			testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=0"),
 		},
 	)
 	if err != nil {
@@ -121,7 +121,7 @@ func TestOverrideRepoSyncLogLevel(t *testing.T) {
 	err := nt.Validate(frontendReconcilerNN.Name, frontendReconcilerNN.Namespace, nsReconcilerFrontendDeployment,
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=0"),
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=5"),
-		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=0"),
+		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=0"),
 	)
 	if err != nil {
 		nt.T.Fatal(err)
@@ -151,7 +151,7 @@ func TestOverrideRepoSyncLogLevel(t *testing.T) {
 		testpredicates.GenerationEquals(nsReconcilerFrontendDeploymentGeneration),
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=3"),
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=5"),
-		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=0"),
+		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=0"),
 	)
 	if err != nil {
 		nt.T.Fatal(err)
@@ -188,7 +188,7 @@ func TestOverrideRepoSyncLogLevel(t *testing.T) {
 		testpredicates.GenerationEquals(nsReconcilerFrontendDeploymentGeneration),
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=7"),
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=9"),
-		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=5"),
+		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=5"),
 	)
 	if err != nil {
 		nt.T.Fatal(err)
@@ -208,7 +208,7 @@ func TestOverrideRepoSyncLogLevel(t *testing.T) {
 		testpredicates.GenerationEquals(nsReconcilerFrontendDeploymentGeneration),
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.Reconciler, "-v=0"),
 		testpredicates.DeploymentContainerArgsContains(reconcilermanager.GitSync, "-v=5"),
-		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "-v=0"),
+		testpredicates.DeploymentContainerArgsContains(metrics.OtelAgentName, "--zap-log-level=0"),
 	)
 	if err != nil {
 		nt.T.Fatal(err)
